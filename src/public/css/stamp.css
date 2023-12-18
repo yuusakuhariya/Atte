@@ -1,0 +1,51 @@
+.content {
+    text-align: center;
+    background: #f0eeec;
+    height: 600px;
+}
+
+.content_message {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 40px 0;
+}
+
+
+.content_stamp {
+    display: flex;
+    margin: 0 auto;
+    width: 1000px;
+    height: 400px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: space-between;
+}
+.content_stamp::after {
+    content: "";
+    width: 100%;
+}
+.stamp_frame {
+    padding: 20px 5%;
+    width: 47%;
+    height: 43%;
+    box-sizing: border-box;
+    text-align: center;
+    background: white;
+    display: flex;
+    align-items: center;
+}
+.stamp_frame:nth-child(n+3) {
+    order: 1;
+}
+button {
+    margin: auto;
+    border: none;
+    background: none;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    outline: none;
+    font-size: 20px;
+    font-weight: bold;
+}

@@ -1,0 +1,39 @@
+.header_inner {
+    /* max-width: 1230px; */
+    /* max-widthはいる？ */
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    margin: auto 60px;
+}
+.header_logo {
+    font-size: 34px;
+    font-weight: bolder;
+    margin: auto 0;
+}
+
+nav {
+    margin: auto 0;
+}
+ul {
+    display: flex;
+    justify-content: space-between;
+}
+li {
+    margin-left: 70px;
+}
+a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+
+small {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}

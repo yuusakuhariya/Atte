@@ -1,0 +1,73 @@
+.header_inner {
+    /* max-width: 1230px; */
+    /* max-widthはいる？ */
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    margin: auto 60px;
+}
+
+.header_logo {
+    font-size: 34px;
+    font-weight: bolder;
+    margin: auto 0;
+}
+
+nav {
+    margin: auto 0;
+}
+
+ul {
+    display: flex;
+    justify-content: space-between;
+}
+
+li {
+    margin-left: 70px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.content {
+    text-align: center;
+    background: #f0eeec;
+}
+
+
+.mouth_date {
+    padding: 40px;
+}
+.mouth {
+    padding: 2px 10px;
+    border: 1px solid rgb(67, 67, 255);
+    color: rgb(67, 67, 255);
+    background-color: white;
+}
+
+
+.date_table {
+    max-width: 1230px;
+    margin: 0 auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border-top: 1px solid #3a3636;
+    text-align: center;
+    padding: 20px 8px;
+    font-weight: bold;
+}
+
+.pagination {
+    padding: 40px;
+}

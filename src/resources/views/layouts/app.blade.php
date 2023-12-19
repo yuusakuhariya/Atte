@@ -12,24 +12,8 @@
 </head>
 
 <body>
-    <header class="header">
-        <div class="header_inner">
-            <div class="header_logo">
-                Atte
-            </div>
-            <nav class="nav">
-                <ul>
-                    <li><a href="">ホーム</a></li>
-                    <li><a href="">日付一覧</a></li>
-                    <li><a href="">ログアウト</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
 
-    <main>
-        @yield('content')
-    </main>
+    @yield('content')
 
     <footer>
             <small>Atte,inc.</small>

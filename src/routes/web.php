@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AtteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::middleware('auth')->group(function () {
+    Route::get('/', [AtteController::class, ('stamp')]);
 });

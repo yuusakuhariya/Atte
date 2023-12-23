@@ -14,9 +14,16 @@
         </div>
         <nav class="nav">
             <ul>
+                @if (Auth::check())
                 <li><a href="">ホーム</a></li>
                 <li><a href="">日付一覧</a></li>
-                <li><a href="">ログアウト</a></li>
+                <li>
+                    <form action="/logout" method="post">
+                        @csrf
+                        <button class="header-nav__button">ログアウト</button>
+                    </form>
+                    @endif
+                </li>
             </ul>
         </nav>
     </div>
@@ -24,7 +31,7 @@
 
 <main>
     <div class="content">
-        <div class=content_message>さんお疲れ様です！</div>
+        <div class=content_message>{{ auth()->user()->name }} さんお疲れ様です！</div>
         <div class="content_stamp">
             <form class="stamp_frame" action="" method="">
                 <button class="start_time-button" type="submit">勤務開始</button>

@@ -19,9 +19,10 @@
     <div class="content">
         <div class=content_title>ログイン</div>
         <div class="form">
-            <form class="form_register" action="" method="">
+            <form class="form_register" action="/login" method="post">
+                @csrf
                 <div class="form_field">
-                    <input class="input_name" type="name" name="name" placeholder="  メールアドレス" value="">
+                    <input class="input_name" type="email" name="email" placeholder="  メールアドレス" value="{{ old('email') }}">
                 </div>
 
                 <div class="form_field">
@@ -34,7 +35,7 @@
             </form>
             <div class="text">
                 <p class="login_text">アカウントをお持ちでない方はこちらから</p>
-                <a class="login_button" href="">会員登録</a>
+                <a class="login_button" href="/register">会員登録</a>
             </div>
         </div>
     </div>

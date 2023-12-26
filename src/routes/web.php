@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AtteController;
+use App\Http\Controllers\AttendanceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,3 +21,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->group(function () {
     Route::get('/', [AtteController::class, ('stamp')]);
 });
+
+Route::post('/', [AttendanceController::class, 'store']);
+Route::Post('/update', [AttendanceController::class, 'update']);

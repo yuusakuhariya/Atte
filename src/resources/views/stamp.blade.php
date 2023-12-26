@@ -33,11 +33,13 @@
     <div class="content">
         <div class=content_message>{{ auth()->user()->name }} さんお疲れ様です！</div>
         <div class="content_stamp">
-            <form class="stamp_frame" action="" method="">
+            <form class="stamp_frame" action="/" method="post">
+                @csrf
                 <button class="start_time-button" type="submit">勤務開始</button>
             </form>
 
-            <form class="stamp_frame" action="" method="">
+            <form class="stamp_frame" action="/update" method="post">
+                @csrf
                 <button class="end_time-button" type="submit">勤務終了</button>
             </form>
 

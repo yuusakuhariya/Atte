@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 class AtteController extends Controller
 {
-    public function stamp()
-    {
-        return view('stamp');
-    }
+    // public function stamp()
+    // {
+    //     return view('stamp');
+    // }
 }

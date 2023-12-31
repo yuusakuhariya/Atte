@@ -4,29 +4,36 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Attendance;
+use App\Models\Rest;
 
 class AttendanceController extends Controller
 {
 
     public function stamp()
     {
+        // 出勤、退勤の活性、非活性
         $user_id = auth()->user()->id;
-        // 現在認証されているuser_id情報を取得
         $work_date = now()->toDateString();
-        // 今日の日付を取得
-        $end_time = now()->totimestring();
-        // 退勤時間を取得
 
         $attendance = Attendance::where('user_id', $user_id)
         ->where('work_date', $work_date)
         ->first();
         // Attendanceテーブルから今日の出勤のuser_idを見つけ、$attendanceに代入する。
 
-        return view('stamp', ['attendance' => $attendance]);
+
+        // 休憩開始、休憩終了の活性、非活性
+        $attendance_id = Attendance::whereNull('end_time')->first()->user_id;
+
+        $end_rest = Rest::where('attendance_id', $attendance_id)
+        ->where('end_rest_time', null)
+        ->first();
+
+
+        return view('stamp', ['attendance' => $attendance, 'end_rest' => $end_rest]);
     }
 
 
-    public function store()
+    public function storeAttendance()
     {
         $user_id = auth()->user()->id;
         $work_date = now()->toDateString();
@@ -51,7 +58,7 @@ class AttendanceController extends Controller
     }
 
 
-    public function update()
+    public function updateAttendance()
     {
         $user_id = auth()->user()->id;
         $work_date = now()->toDateString();
@@ -65,5 +72,44 @@ class AttendanceController extends Controller
         }
 
         return redirect('/');
+    }
+
+
+    // ここから休憩の実装
+    // 休憩開始
+    public function storeRest()
+    {
+        $attendance = Attendance::whereNull('end_time')->first();
+        $start_rest_time = now()->totimeString();
+
+        if ($attendance)
+        {
+            Rest::create([
+            'attendance_id' => $attendance->user_id,
+            'start_rest_time' => $start_rest_time,
+            'end_rest_time' => null,
+            'rest_time' => null,
+            ]);
+        }
+
+        return redirect('/');
+    }
+
+    // 休憩終了
+    public function updateRest()
+    {
+        $attendance_id = Attendance::whereNull('end_time')->first()->user_id;
+        $end_rest_time = now()->totimeString();
+        $rest = Rest::where('attendance_id', $attendance_id)
+        ->where('end_rest_time', null)
+        ->first();
+
+        if ($rest && is_null($rest->end_rest_time))
+        {
+            $rest -> update(['end_rest_time' => $end_rest_time]);
+        }
+
+        return redirect('/');
+
     }
 }

@@ -25,8 +25,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/', [AttendanceController::class, ('stamp')]);
 });
 
-Route::post('/store', [AttendanceController::class, 'store']);
-Route::Post('/update', [AttendanceController::class, 'update']);
+Route::post('/store', [AttendanceController::class, 'storeAttendance']);
+Route::Post('/update', [AttendanceController::class, 'updateAttendance']);
+Route::post('/store-rest', [AttendanceController::class, 'storeRest']);
+Route::Post('/update-rest', [AttendanceController::class, 'updateRest']);
 
 
 

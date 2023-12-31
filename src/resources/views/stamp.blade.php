@@ -43,12 +43,14 @@
                 <button class="end_time-button" type="submit" {{ $attendance && is_null($attendance->end_time) ? '' : 'disabled' }}>勤務終了</button>
             </form>
 
-            <form class="stamp_frame" action="" method="">
-                <button class="break_start_time-button" type="submit">休憩開始</button>
+            <form class="stamp_frame" action="/store-rest" method="post">
+                @csrf
+                <button class="break_start_time-button" type="submit" {{ $attendance && is_null($attendance->end_time) && !$end_rest ? '' : 'disabled' }}>休憩開始</button>
             </form>
 
-            <form class="stamp_frame" action="" method="">
-                <button class="break_end_time-button" type="submit">休憩終了</button>
+            <form class="stamp_frame" action="/update-rest" method="post">
+                @csrf
+                <button class="break_end_time-button" type="submit" {{ $attendance && is_null($attendance->end_time) && $end_rest ? '' : 'disabled' }}>休憩終了</button>
             </form>
         </div>
     </div>

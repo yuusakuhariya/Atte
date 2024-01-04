@@ -24,12 +24,12 @@ class AttendanceController extends Controller
         // 休憩開始、休憩終了の活性、非活性
         $attendance_id = Attendance::whereNull('end_time')->first()->user_id;
 
-        $end_rest = Rest::where('attendance_id', $attendance_id)
+        $end_rest_time = Rest::where('attendance_id', $attendance_id)
         ->where('end_rest_time', null)
         ->first();
 
 
-        return view('stamp', ['attendance' => $attendance, 'end_rest' => $end_rest]);
+        return view('stamp', ['attendance' => $attendance, 'end_rest_time' => $end_rest_time]);
     }
 
 
@@ -95,18 +95,35 @@ class AttendanceController extends Controller
         return redirect('/');
     }
 
-    // 休憩終了
+    // 休憩終了＋休憩合計時間
     public function updateRest()
     {
         $attendance_id = Attendance::whereNull('end_time')->first()->user_id;
         $end_rest_time = now()->totimeString();
-        $rest = Rest::where('attendance_id', $attendance_id)
-        ->where('end_rest_time', null)
-        ->first();
 
-        if ($rest && is_null($rest->end_rest_time))
-        {
-            $rest -> update(['end_rest_time' => $end_rest_time]);
+        // 休憩レコードの休憩終了が null のレコードを取得し、変数$rest に代入する。（複数あるから get() メソッドを使用する）
+        $rests = Rest::where('attendance_id', $attendance_id)->where('end_rest_time', null)->get();
+
+        // 休憩終了をレコードに追加。
+        // $rests を $rest に代入して繰り返す。
+        // もし 変数$rest および、変数rest のend_rest_time カラムが null の場合、$end_rest_time を end_rest_time に代入し、変数$rest に更新する。
+        foreach ($rests as $rest) {
+            if ($rest && is_null($rest->end_rest_time)) {
+                $rest -> update(['end_rest_time' => $end_rest_time]);
+            }
+        }
+
+        // 休憩レコードの休憩終了が not null のレコードを取得し、休憩時間が null のレコード取得し、それを $restTimes に代入する。（複数あるから get() メソッドを使用する）
+        $restTimes = Rest::where('attendance_id', $attendance_id)->whereNotNull('end_rest_time')->whereNull('rest_time')->get();
+
+        // 休憩時間の差分計算しレコードに追加。
+        foreach ($restTimes as $restTime) {
+            $startRestTime =strtotime($restTime->start_rest_time);
+            $endRestTime = strtotime($restTime->end_rest_time);
+
+            $rest_time = ($endRestTime - $startRestTime);
+
+            $restTime->update(['rest_time' => $rest_time]);
         }
 
         return redirect('/');

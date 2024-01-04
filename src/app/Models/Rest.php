@@ -15,7 +15,7 @@ class Rest extends Model
         'attendance_id',
         'start_rest_time',
         'end_rest_time',
-        'rest_time'
+        'rest_time',
     ];
 
     public function attendance()

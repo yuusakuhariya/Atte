@@ -12,11 +12,19 @@
         <div class="header_logo">
             Atte
         </div>
+
         <nav class="nav">
             <ul>
-                <li><a href="">ホーム</a></li>
-                <li><a href="">日付一覧</a></li>
-                <li><a href="">ログアウト</a></li>
+                @if (Auth::check())
+                <li><a href="/">ホーム</a></li>
+                <li><a href="/date">日付一覧</a></li>
+                <li>
+                    <form action="/logout" method="post">
+                        @csrf
+                        <button class="header-nav__button">ログアウト</button>
+                    </form>
+                </li>
+                @endif
             </ul>
         </nav>
     </div>
@@ -26,7 +34,7 @@
     <div class="content">
         <div class="mouth_date">
             <a class="mouth" href="">&lt;</a>
-            <span></span>
+            <span>{{ $work_date }}</span>
             <a class="mouth" href="">&gt;</a>
         </div>
         <div class="date_table">
@@ -38,13 +46,15 @@
                     <th>休憩時間</th>
                     <th>勤務時間</th>
                 </tr>
+                @foreach ($users as $user)
                 <tr>
-                    <th>a</th>
-                    <th>a</th>
-                    <th>a</th>
-                    <th>a</th>
-                    <th>a</th>
+                    <th>{{ $user->name }}</th>
+                    <th>{{ $user->attendance->start_time }}</th>
+                    <th>{{ $user->attendance->end_time }}</th>
+                    <th></th>
+                    <th>{{ $user->attendance->rest->rest_time }}</th>
                 </tr>
+                @endforeach
             </table>
         </div>
         <div class="pagination">

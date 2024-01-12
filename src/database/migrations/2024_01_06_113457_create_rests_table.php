@@ -3,9 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use phpDocumentor\Reflection\Types\Nullable;
 
-class CreateRestsTables extends Migration
+class CreateRestsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +13,9 @@ class CreateRestsTables extends Migration
      */
     public function up()
     {
-        Schema::create('rests_tables', function (Blueprint $table) {
+        Schema::create('rests', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('attendance_id')->constrained('attendances');
+            $table->foreignId('attendance_id')->constrained();
             $table->time('start_rest_time');
             $table->time('end_rest_time')->nullable();
             $table->time('rest_time')->nullable();
@@ -31,6 +30,6 @@ class CreateRestsTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rests_tables');
+        Schema::dropIfExists('rests');
     }
 }

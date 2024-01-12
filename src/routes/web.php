@@ -2,6 +2,7 @@
 
 // use App\Http\Controllers\AtteController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\DateController;
 use App\Models\Attendance;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,7 @@ Route::Post('/update', [AttendanceController::class, 'updateAttendance']);
 Route::post('/store-rest', [AttendanceController::class, 'storeRest']);
 Route::Post('/update-rest', [AttendanceController::class, 'updateRest']);
 
+Route::get('/date', [DateController::class, 'date']);
 
 
 // Route::get('/attendance-disable', [AttendanceController::class, 'attendanceDisable']);

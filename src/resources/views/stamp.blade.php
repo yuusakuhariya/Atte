@@ -15,8 +15,8 @@
         <nav class="nav">
             <ul>
                 @if (Auth::check())
-                <li><a href="">ホーム</a></li>
-                <li><a href="">日付一覧</a></li>
+                <li><a href="/">ホーム</a></li>
+                <li><a href="/date">日付一覧</a></li>
                 <li>
                     <form action="/logout" method="post">
                         @csrf

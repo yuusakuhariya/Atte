@@ -9,7 +9,7 @@ class Rest extends Model
 {
     use HasFactory;
 
-    protected $table = 'rests_tables';
+    protected $table = 'rests';
 
     protected $fillable = [
         'attendance_id',

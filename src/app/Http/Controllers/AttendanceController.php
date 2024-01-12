@@ -106,14 +106,13 @@ class AttendanceController extends Controller
                 'attendance_id' => $attendance->user_id,
                 'start_rest_time' => $start_rest_time,
                 'end_rest_time' => null,
-                'rest_time' => null,
             ]);
         }
 
         return redirect('/');
     }
 
-    // 休憩終了＋休憩合計時間
+    // 休憩終了
     public function updateRest()
     {
         // 現在認証しているユーザーのidを取得
@@ -147,28 +146,28 @@ class AttendanceController extends Controller
                     $rest -> update(['end_rest_time' => $end_rest_time]);
                 }
             }
-
-            // // Restモデル（Restsテーブル）の、attendance_idカラムから、変数$attendance（ログイン済みユーザーの勤務終了が空欄の最初のレコード）から取得したidを取得し、
-            // 休憩終了カラムが空欄ではなく、
-            // 休憩時間が空欄のレコードを取得し、
-            // $restTimes に代入する。（複数あるから get() メソッドを使用する）
-            $restTimes = Rest::where('attendance_id', $attendance)
-            ->where('rest_time', Null)
-            ->get();
-
-            // 休憩時間の差分計算しレコードに追加。
-            foreach ($restTimes as $restTime) {
-                $startRestTime = strtotime($restTime->start_rest_time);
-                $endRestTime = strtotime($restTime->end_rest_time);
-
-                $rest_time = ($endRestTime - $startRestTime);
-
-                $restTime->update(['rest_time' => $rest_time]);
-            }
         }
-
 
         return redirect('/');
 
     }
 }
+
+                        // 休憩時間の差分計算しレコードに追加。
+            // レコードに保存不要（面談時確認）
+            // // Restモデル（Restsテーブル）の、attendance_idカラムから、変数$attendance（ログイン済みユーザーの勤務終了が空欄の最初のレコード）から取得したidを取得し、
+            // 休憩終了カラムが空欄ではなく、
+            // 休憩時間が空欄のレコードを取得し、
+            // $restTimes に代入する。（複数あるから get() メソッドを使用する）
+            // $restTimes = Rest::where('attendance_id', $attendance)
+            // ->where('rest_time', Null)
+            // ->get();
+
+            // foreach ($restTimes as $restTime) {
+            //     $startRestTime = strtotime($restTime->start_rest_time);
+            //     $endRestTime = strtotime($restTime->end_rest_time);
+
+            //     $rest_time = ($endRestTime - $startRestTime);
+
+            //     $restTime->update(['rest_time' => $rest_time]);
+            // }

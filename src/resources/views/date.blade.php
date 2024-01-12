@@ -52,7 +52,7 @@
                     <th>{{ $user->attendance->start_time }}</th>
                     <th>{{ $user->attendance->end_time }}</th>
                     <th></th>
-                    <th>{{ $user->attendance->rest->rest_time }}</th>
+                    <th></th>
                 </tr>
                 @endforeach
             </table>

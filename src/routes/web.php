@@ -23,19 +23,12 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', [AttendanceController::class, ('stamp')]);
+    Route::get('/', [AttendanceController::class, 'stamp']);
+    Route::get('/date/{direction}/{date?}', [DateController::class,'date'])->name('date');
+
 });
 
 Route::post('/store', [AttendanceController::class, 'storeAttendance']);
 Route::Post('/update', [AttendanceController::class, 'updateAttendance']);
 Route::post('/store-rest', [AttendanceController::class, 'storeRest']);
 Route::Post('/update-rest', [AttendanceController::class, 'updateRest']);
-
-Route::get('/date', [DateController::class, 'date']);
-
-
-// Route::get('/attendance-disable', [AttendanceController::class, 'attendanceDisable']);
-
-//Route::get('/', [AttendanceController::class, 'attendanceDisable']);だとlocalhostに接続できてログイン画面にいく。
-//ログアウト画面にいかない。
-//Route::get('/stamp', [AttendanceController::class, 'attendanceDisable']);だとログアウトできて入力すると、ホームに行かないけど//Route::get('/', [AttendanceController::class, 'attendanceDisable']);にするとホームに行く。

@@ -52,7 +52,7 @@
                     <!-- optional()を使用。（nullでもエラーにならない） -->
                     <th>{{ optional($user->attendance)->start_time }}</th>
                     <th>{{ optional($user->attendance)->end_time }}</th>
-                    <th>{{ $workTimes[$user->attendance->user_id] }}</th>
+                    <th></th>
                     <th></th>
                 </tr>
                 @endforeach

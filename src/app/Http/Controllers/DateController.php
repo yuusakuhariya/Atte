@@ -10,27 +10,40 @@ use Carbon\Carbon;
 
 class DateController extends Controller
 {
-    public function date($direction, $date = null)
+    public function date($direction = null)
     {
-        $currentDate = $date ? Carbon::parse($date) : now();
+        $current = session('work_date');
+
+        if ($direction === 'current') {
+            $work_date = now()->toDateString();
+        }
+        // なぜ現在時刻が入らない？
+
+
 
         if ($direction === 'previous') {
-            $currentDate = $currentDate->subDay();
+            $current->subDay();
         } elseif ($direction === 'next') {
-            $currentDate = $currentDate->addDay();
+            $current->addDay();
         }
 
-        $work_date = $currentDate->toDateString();
+        $work_date = $current->toDateString();
 
-        $users = User::with(['attendance' => function ($query) use ($currentDate) {
-            $query->whereDate('work_date', '=', $currentDate->toDateString());
-        }, 'attendance.rest'])
-        ->get();
+        session(['work_date' => $current]);
+
+        $users = User::with(['attendance' => function ($query) use ($work_date) {
+                $query->where('work_date', $work_date);
+            }])->get();
+
+
+        // ここからが分からない
 
         $workTimes = [];
+        $restTimes = [];
 
         foreach ($users as $user) {
             $attendance = $user->attendance;
+            $rest = $user->rest;
 
             if ($attendance) {
                 $start_time = strtotime($attendance->start_time);
@@ -42,11 +55,19 @@ class DateController extends Controller
                 $workTimes[$user->attendance->user_id] = $work_time;
 
             }
+
+                if ($rest) {
+                    $start_rest_time = strtotime($rest->start_rest_time);
+                    $end_rest_time = strtotime($rest->end_rest_time);
+
+                    $rest_timestamp = ($end_rest_time - $start_rest_time);
+                    $rest_time = gmdate("H:i:s", $rest_timestamp);
+
+                        $restTimes[$user->rest->attendance_id] = $rest_time;
+                }
         }
 
-
-
-        return view('date', compact('users', 'work_date', 'workTimes'));
+        return view('date', compact('users', 'work_date', 'workTimes', 'restTimes'));
     }
 }
 
@@ -55,18 +76,22 @@ class DateController extends Controller
 // {
 //     public function date($direction)
 //     {
-//         // 現在の日付を取得し、変数$currentDateに代入
-//         $currentDate = now();
+//         セッションのキーであるwork_dateの値がない場合はnullを返したのを$currentに代入。
+//         $current = session('work_date');
+
 
 //         // directionに応じて日付を変更
 //         if ($direction === 'previous') {
-//             $currentDate = $currentDate->subDay(); // 1日前
+//             $current->subDay(); // 1日前
 //         } elseif ($direction === 'next') {
-//             $currentDate = $currentDate->addDay(); // 1日後
+//             $current->addDay(); // 1日後
 //         }
 
 //         // 新しい日付を取得
-//         $work_date = $currentDate->toDateString();
+//         $work_date = $current->toDateString();
+//         セッションに上記で指定した値のcurrentをキーのwork_dateに保存。
+//         session(['work_date' => $current]);
+
 
 //         $users = User::with(['attendance' => function ($query) use ($currentDate) {
 //             $query->whereDate('work_date', '=', $currentDate->toDateString());

@@ -17,7 +17,7 @@
             <ul>
                 @if (Auth::check())
                 <li><a href="/">ホーム</a></li>
-                <li><a href="{{ route('date', ['direction' => 'current']) }}">日付一覧</a></li>
+                <li><a href="{{ route('resetCurrent') }}">日付一覧</a></li>
                 <li>
                     <form action="/logout" method="post">
                         @csrf
@@ -49,11 +49,10 @@
                 @foreach ($users as $user)
                 <tr>
                     <th>{{ $user->name }}</th>
-                    <!-- optional()を使用。（nullでもエラーにならない） -->
                     <th>{{ optional($user->attendance)->start_time }}</th>
                     <th>{{ optional($user->attendance)->end_time }}</th>
                     <th></th>
-                    <th></th>
+                    <th>{{ $user_work_times[$user->id] }}</th>
                 </tr>
                 @endforeach
             </table>

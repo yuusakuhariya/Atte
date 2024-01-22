@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->group(function () {
     Route::get('/', [AttendanceController::class, 'stamp']);
     Route::get('/date/{direction}/{date?}', [DateController::class,'date'])->name('date');
+    Route::get('/reset-current-time', [DateController::class, 'resetCurrent'])->name('resetCurrent');
 
 });
 

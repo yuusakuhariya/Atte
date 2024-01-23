@@ -23,6 +23,6 @@ class Attendance extends Model
 
     public function rest()
     {
-        return $this->hasOne(Rest::class);
+        return $this->hasMany(Rest::class);
     }
 }

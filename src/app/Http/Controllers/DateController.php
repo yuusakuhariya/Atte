@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Attendance;
-use App\Models\Rest;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Redirect;
 
@@ -26,26 +23,17 @@ class DateController extends Controller
         session(['work_date' => $current]);
 
 
-        // $users = User::with(['attendance' => function ($query) use ($work_date) {
-        //     $query->where('work_date', '=',  $work_date);
-        // }])->get();
-
         $users = User::whereHas('attendance', function ($query) use ($work_date) {
             $query->where('work_date', '=', $work_date);
         })->with(['attendance' => function ($query) use ($work_date) {
-            $query->where('work_date', '=', $work_date);
-        }])->with(['rest' => function ($query) use ($work_date) {
-            $query->where('start_rest_time', '=', $work_date);
-        }])->get();
+                $query->where('work_date', '=', $work_date)
+                ->with(['rest' => function($query) {
+                    $query->whereColumn('rests.attendance_id', 'attendances.user_id');
+                }]);
+            }])->get();
 
         dd($users);
-        // foreach ($users as $user) {
-        //     $start_time = optional($user->attendance)->start_time;
-        //     $end_time = optional($user->attendance)->end_time;
 
-        //     $total_time = strtotime($end_time) - strtotime($start_time);
-        //     $work_time = gmdate('H:i:s', $total_time);
-        // }
 
         $user_work_times = [];  // 空の配列に$work_time（各ユーザーの勤務時間）を格納する変数を用意。
 

@@ -23,6 +23,6 @@ class Attendance extends Model
 
     public function rest()
     {
-        return $this->hasMany(Rest::class);
+        return $this->hasMany(Rest::class, 'attendance_id', 'user_id');
     }
 }

@@ -51,7 +51,7 @@
                     <th>{{ $user->name }}</th>
                     <th>{{ optional($user->attendance)->start_time }}</th>
                     <th>{{ optional($user->attendance)->end_time }}</th>
-                    <th></th>
+                    <th>{{ $user_rest_times[$user->id] }}</th>
                     <th>{{ $user_work_times[$user->id] }}</th>
                 </tr>
                 @endforeach

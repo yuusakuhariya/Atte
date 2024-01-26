@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Attendance;
+use App\Models\Rest;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Redirect;
 
@@ -22,20 +25,18 @@ class DateController extends Controller
         $work_date = $current->toDateString();
         session(['work_date' => $current]);
 
-
+        // restの部分検索
         $users = User::whereHas('attendance', function ($query) use ($work_date) {
             $query->where('work_date', '=', $work_date);
         })->with(['attendance' => function ($query) use ($work_date) {
-                $query->where('work_date', '=', $work_date)
-                ->with(['rest' => function($query) {
-                    $query->whereColumn('rests.attendance_id', 'attendances.user_id');
-                }]);
-            }])->get();
-
-        dd($users);
+            $query->where('work_date', '=', $work_date);
+        }, 'attendance.rest' => function ($query) use ($work_date) {
+            $query->where('created_at', 'like', '%' . $work_date . '%');
+        }])->get();
 
 
         $user_work_times = [];  // 空の配列に$work_time（各ユーザーの勤務時間）を格納する変数を用意。
+        $user_rest_times = [];
 
         foreach ($users as $user) {
             $start_time = optional($user->attendance)->start_time;
@@ -49,10 +50,25 @@ class DateController extends Controller
             }
 
             $user_work_times[$user->id] = $work_time;  // $work_time（各ユーザーの勤務時間）のデータを$user_work_times[$user->id]ここに格納する。
+
+            $rests = $user->attendance->rest;
+            $total_rest_time = 0;
+                foreach ($rests as $rest) {
+                    $start_rest_time = $rest->start_rest_time;
+                    $end_rest_time = $rest->end_rest_time;
+
+                    if ($start_rest_time && $end_rest_time) {
+                        $rest_time = strtotime($end_rest_time) - strtotime($start_rest_time);
+                        $total_rest_time += $rest_time;
+                    } else {
+                        $rest_time = "";
+                    }
+
+                    $user_rest_times[$user->id] = gmdate('H:i:s', $total_rest_time);
+                }
         }
-
-
-        return view('date', compact('users', 'work_date', 'user_work_times'));
+        // dd($user_rest_times);
+        return view('date', compact('users', 'work_date', 'user_work_times', 'user_rest_times'));
     }
 
 

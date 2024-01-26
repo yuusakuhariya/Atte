@@ -19,6 +19,7 @@ class Rest extends Model
 
     public function attendance()
     {
-        return $this->belongsTo(Attendance::class);
+        return $this->belongsTo(Attendance::class, 'user_id', 'user_id');
     }
 }
+

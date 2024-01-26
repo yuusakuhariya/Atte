@@ -32,3 +32,4 @@ class CreateRestsTable extends Migration
         Schema::dropIfExists('rests');
     }
 }
+

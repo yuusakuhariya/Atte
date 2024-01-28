@@ -2,13 +2,17 @@
 Atte（勤怠管理システム）
 ![スクリーンショット 2024-01-29 063454](https://github.com/yuusakuhariya/Atte/assets/137383906/46250c53-df24-4b2c-9b67-d46906c403a8)
 
+
 ## 作成した目的
 人事評価のため
+
 
 ## アプリケーションURL
 
 
+
 ## 他のリポジトリ
+
 
 
 ## 機能一覧
@@ -19,6 +23,7 @@ Atte（勤怠管理システム）
 ・1日の出勤時間計算、1日の休憩時間計算
 ・指定日の各ユーザーの勤務記録の表示
 
+
 ## 使用技術
 ・Laravel 8.83.8
 ・Docker 3.8
@@ -27,4 +32,17 @@ Atte（勤怠管理システム）
 ・mysql 8.0.26
 ・phpmyadmin
 
+
+## テーブル設計
+![スクリーンショット 2024-01-29 074020](https://github.com/yuusakuhariya/Atte/assets/137383906/d0280df1-4c05-4944-9574-2cb8bb0a0e6d)
+
+
 ## ER図
+![スクリーンショット 2024-01-29 073754](https://github.com/yuusakuhariya/Atte/assets/137383906/81b8bd04-7a63-41d1-abef-77b79c871a4c)
+
+
+## 環境構築
+
+
+
+## 他記載内容

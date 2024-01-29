@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use App\Models\Attendance;
 use App\Models\Rest;
 
@@ -40,15 +38,12 @@ class AttendanceController extends Controller
             $end_rest_time = null;
         }
 
-        return view('stamp', [
-            'attendance' => $attendance,
-            'attendanceRecord' => $attendanceRecord,
-            'end_rest_time' => $end_rest_time
-        ]);
+        return view('stamp', compact('attendance', 'attendanceRecord', 'end_rest_time')
+        );
     }
 
-
-    public function storeAttendance()
+    // 出勤
+    public function workStartTime()
     {
         $user_id = auth()->user()->id;
         $work_date = now()->toDateString();
@@ -72,8 +67,8 @@ class AttendanceController extends Controller
         return redirect('/');
     }
 
-
-    public function updateAttendance()
+    // 退勤
+    public function WorkEndTime()
     {
         $user_id = auth()->user()->id;
         $work_date = now()->toDateString();
@@ -90,9 +85,8 @@ class AttendanceController extends Controller
     }
 
 
-    // ここから休憩の実装
     // 休憩開始
-    public function storeRest()
+    public function restStartTime()
     {
         $user_id = auth()->user()->id;
         $work_date = now()->toDateString();
@@ -113,7 +107,7 @@ class AttendanceController extends Controller
     }
 
     // 休憩終了
-    public function updateRest()
+    public function restEndTime()
     {
         // 現在認証しているユーザーのidを取得
         // Attendanceモデル（Attendancesテーブル）の、user_idカラムから、現在ログインしているユーザーのidを取得し、

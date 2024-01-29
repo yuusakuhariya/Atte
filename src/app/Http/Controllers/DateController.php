@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Attendance;
-use App\Models\Rest;
 use Carbon\Carbon;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Redirect;
 
 class DateController extends Controller
 {
-    public function date($direction)
+    public function dayListDate($direction)
     {
         $currentDate = session('work_date', now());
         $current = Carbon::parse($currentDate);
@@ -32,7 +30,7 @@ class DateController extends Controller
             $query->where('work_date', '=', $work_date);
         }, 'attendance.rest' => function ($query) use ($work_date) {
             $query->where('created_at', 'like', '%' . $work_date . '%');
-        }])->get();
+        }])->paginate(5);
 
 
         $user_work_times = [];  // 空の配列に$work_time（各ユーザーの勤務時間）を格納する変数を用意。
@@ -72,11 +70,11 @@ class DateController extends Controller
     }
 
 
-    public function resetCurrent()
+    public function currentDayListDate()
     {
         session(['work_date' => now()]);
 
-        return Redirect::route('date', ['direction' => 'current']);
+        return Redirect::route('dayListDate', ['direction' => 'current']);
     }
 }
 

@@ -1,6 +1,5 @@
 <?php
 
-// use App\Http\Controllers\AtteController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\DateController;
 use App\Models\Attendance;
@@ -24,12 +23,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [AttendanceController::class, 'stamp']);
-    Route::get('/date/{direction}/{date?}', [DateController::class,'date'])->name('date');
-    Route::get('/reset-current-time', [DateController::class, 'resetCurrent'])->name('resetCurrent');
+    Route::get('/date/{direction}/{date?}', [DateController::class, 'dayListDate'])->name('dayListDate');
+    Route::get('/current-day-list-date', [DateController::class, 'currentDayListDate'])->name('currentDayListDate');
 
 });
 
-Route::post('/store', [AttendanceController::class, 'storeAttendance']);
-Route::Post('/update', [AttendanceController::class, 'updateAttendance']);
-Route::post('/store-rest', [AttendanceController::class, 'storeRest']);
-Route::Post('/update-rest', [AttendanceController::class, 'updateRest']);
+Route::post('/start-time', [AttendanceController::class, 'workStartTime']);
+Route::Post('/end-time', [AttendanceController::class, 'workEndTime']);
+Route::post('/rest-start-time', [AttendanceController::class, 'restStartTime']);
+Route::Post('/rest-end-time', [AttendanceController::class, 'restEndTime']);

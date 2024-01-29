@@ -17,7 +17,7 @@
             <ul>
                 @if (Auth::check())
                 <li><a href="/">ホーム</a></li>
-                <li><a href="{{ route('resetCurrent') }}">日付一覧</a></li>
+                <li><a href="{{ route('currentDayListDate') }}">日付一覧</a></li>
                 <li>
                     <form action="/logout" method="post">
                         @csrf
@@ -33,9 +33,9 @@
 <main>
     <div class="content">
         <div class="mouth_date">
-            <a class="mouth" href="{{ route('date', ['direction' => 'previous']) }}">&lt;</a>
+            <a class="mouth" href="{{ route('dayListDate', ['direction' => 'previous']) }}">&lt;</a>
             <span>{{ $work_date }}</span>
-            <a class="mouth" href="{{ route('date', ['direction' => 'next']) }}">&gt;</a>
+            <a class="mouth" href="{{ route('dayListDate', ['direction' => 'next']) }}">&gt;</a>
         </div>
         <div class="date_table">
             <table>
@@ -58,7 +58,7 @@
             </table>
         </div>
         <div class="pagination">
-            ページネーションが入る
+            {{ $users->links() }}
         </div>
     </div>
 </main>

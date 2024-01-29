@@ -8,11 +8,7 @@ Atte（勤怠管理システム）
 
 
 ## アプリケーションURL
-
-
-
-## 他のリポジトリ
-
+* 
 
 
 ## 機能一覧
@@ -42,12 +38,23 @@ Atte（勤怠管理システム）
 
 ## 環境構築
 * 概要
-　* LaravelをDockerで動作させ、NginxでWebサーバーを構築し、PHPMyAdminでデータベースを管理するための手順。
+  * LaravelをDockerで動作させ、NginxでWebサーバーを構築し、PHPMyAdminでデータベースを管理するための手順。
 * 以下のソフトウェアがインストールされていることを確認。
-　* Docker (https://www.docker.com/)
+  * Docker (https://www.docker.com/)
   * Docker-compose (https://docs.docker.com/compose/)
 * プロジェクトのクローン。
-　* 
+  * git clone https://github.com/yuusakuhariya/Atte.git
+* env ファイル作成し、環境設定実行。
+  * cp .env.example .env
+* Dockerコンテナをビルドして起動する。
+  * docker-compose up -d --build
+* Laravelアプリケーションをインストールし、アプリケーションキーを生成する。
+  * docker-compose exec app composer install
+  * docker-compose exec app php artisan key:generate
+* データベースのマイグレーションを実行する。
+  * docker-compose exec app php artisan migrate
+* http://localhost にアクセスしてLaravelアプリケーションにアクセスできることを確認する。
+* http://localhost:8080 にアクセスしてPhpMyAdminでデータベースを管理できることを確認する。
 
 
 ## 他記載内容

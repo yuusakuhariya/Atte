@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\StampController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\RestController;
 use App\Http\Controllers\DateController;
-use App\Models\Attendance;
+use App\Http\Controllers\UserListController;
+use App\Http\Controllers\UserListDateController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,13 +25,16 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', [AttendanceController::class, 'stamp']);
+    Route::get('/', [StampController::class, 'stamp']);
     Route::get('/date/{direction}/{date?}', [DateController::class, 'dayListDate'])->name('dayListDate');
     Route::get('/current-day-list-date', [DateController::class, 'currentDayListDate'])->name('currentDayListDate');
+    Route::get('/user-list', [UserListController::class, 'userList']);
+    Route::get('/users/{id}', [UserListDateController::class, 'userListDate'])->name('userListDate');
 
 });
 
 Route::post('/start-time', [AttendanceController::class, 'workStartTime']);
 Route::Post('/end-time', [AttendanceController::class, 'workEndTime']);
-Route::post('/rest-start-time', [AttendanceController::class, 'restStartTime']);
-Route::Post('/rest-end-time', [AttendanceController::class, 'restEndTime']);
+Route::post('/rest-start-time', [RestController::class, 'restStartTime']);
+Route::Post('/rest-end-time', [RestController::class, 'restEndTime']);
+

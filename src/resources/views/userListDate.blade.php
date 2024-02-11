@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('/css/date.css') }}" />
+<link rel="stylesheet" href="{{ asset('/css/userListDate.css') }}" />
 @endsection
 
 
@@ -33,35 +33,36 @@
 
 <main>
     <div class="content">
-        <div class="mouth_date">
-            <a class="mouth" href="{{ route('dayListDate', ['direction' => 'previous']) }}">&lt;</a>
-            <span>{{ $work_date }}</span>
-            <a class="mouth" href="{{ route('dayListDate', ['direction' => 'next']) }}">&gt;</a>
+        <div class="user_list_date">
+            ユーザーデータ一覧
         </div>
-        <div class="date_table">
+        <div class="user_date_table">
             <table>
                 <tr>
-                    <th>名前</th>
+                    <th>日付</th>
                     <th>勤務開始</th>
                     <th>勤務終了</th>
                     <th>休憩時間</th>
                     <th>勤務時間</th>
                 </tr>
-                @foreach ($users as $user)
+
+                @foreach ($attendances as $attendance)
                 <tr>
-                    <th>{{ $user->name }}</th>
-                    <th>{{ $user_start_times[$user->id] }}</th>
-                    <th>{{ $user_end_times[$user->id] }}</th>
-                    <th>{{ $user_rest_times[$user->id] }}</th>
-                    <th>{{ $user_work_times[$user->id] }}</th>
+                    <th>{{ $attendance->work_date }}</th>
+                    <th>{{ $attendance->start_time }}</th>
+                    <th>{{ $attendance->end_time }}</th>
+                    <th></th>
+                    <th>{{ $work_times[$attendance->id] }}</th>
                 </tr>
                 @endforeach
+
             </table>
         </div>
         <div class="pagination">
-            {{ $users->links() }}
+            {{ $attendances->links() }}
         </div>
     </div>
 </main>
+
 
 @endsection

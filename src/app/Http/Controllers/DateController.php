@@ -37,7 +37,7 @@ class DateController extends Controller
         $user_end_times = [];
         $user_work_times = [];  // 空の配列に$work_time（各ユーザーの勤務時間）を格納する変数を用意。
         $user_rest_times = [];
-
+// dd($users);
         foreach ($users as $user) {
 
             $attendances = $user->attendance;
@@ -65,11 +65,12 @@ class DateController extends Controller
                         $rest_time = strtotime($end_rest_time) - strtotime($start_rest_time);
                         $total_rest_time += $rest_time;
                     } else {
-                        $rest_time = "";
+                        $total_rest_time = "";
                     }
                     $user_rest_times[$user->id] = gmdate('H:i:s', $total_rest_time);
                 }
             }
+            // dd($users);
         }
         return view('date', compact('users', 'work_date', 'user_start_times' , 'user_end_times', 'user_work_times', 'user_rest_times'));
     }

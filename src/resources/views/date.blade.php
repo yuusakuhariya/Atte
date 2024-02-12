@@ -52,7 +52,7 @@
                     <th>{{ $user->name }}</th>
                     <th>{{ $user_start_times[$user->id] }}</th>
                     <th>{{ $user_end_times[$user->id] }}</th>
-                    <th>{{ $user_rest_times[$user->id] }}</th>
+                    <th>{{ isset($user_rest_times[$user->id]) ? $user_rest_times[$user->id] : '' }}</th>
                     <th>{{ $user_work_times[$user->id] }}</th>
                 </tr>
                 @endforeach

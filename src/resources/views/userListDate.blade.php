@@ -51,7 +51,7 @@
                     <th>{{ $attendance->work_date }}</th>
                     <th>{{ $attendance->start_time }}</th>
                     <th>{{ $attendance->end_time }}</th>
-                    <th></th>
+                    <th>{{ $rest_times[$attendance->id] }}</th>
                     <th>{{ $work_times[$attendance->id] }}</th>
                 </tr>
                 @endforeach

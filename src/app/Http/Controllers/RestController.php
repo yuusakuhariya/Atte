@@ -6,7 +6,6 @@ use App\Models\Rest;
 
 class RestController extends Controller
 {
-    // 休憩開始
     public function restStartTime()
     {
         $user_id = auth()->user()->id;
@@ -24,11 +23,9 @@ class RestController extends Controller
                 'end_rest_time' => null,
             ]);
         }
-
         return redirect('/');
     }
 
-    // 休憩終了
     public function restEndTime()
     {
         $user_id = auth()->user()->id;

@@ -23,7 +23,6 @@ class DateController extends Controller
         $work_date = $current->toDateString();
         session(['work_date' => $current]);
 
-        // リレーション
         $users = User::whereHas('attendance', function ($query) use ($work_date) {
             $query->where('work_date', '=', $work_date);
         })->with(['attendance' => function ($query) use ($work_date) {

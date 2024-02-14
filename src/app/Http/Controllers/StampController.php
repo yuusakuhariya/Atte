@@ -9,7 +9,6 @@ class StampController extends Controller
 {
     public function stamp()
     {
-        // 出勤、退勤の活性、非活性
         $user_id = auth()->user()->id;
         $work_date = now()->toDateString();
 
@@ -17,7 +16,6 @@ class StampController extends Controller
             ->where('work_date', $work_date)
             ->first();
 
-        // 休憩開始、休憩終了の活性、非活性
         $attendanceRecord = Attendance::where('user_id', $user_id)
             ->where('work_date', $work_date)
             ->whereNull('end_time')
@@ -27,9 +25,9 @@ class StampController extends Controller
             $attendance_id = $attendanceRecord->id;
 
             $end_rest_time = Rest::where('attendance_id', $attendance_id)
-                ->where('end_rest_time', null)
+                ->whereNull('end_rest_time')
                 ->first();
-        } else {  // $attendanceRecordが存在しない場合の処理
+        } else {
             $attendance_id = null;
             $end_rest_time = null;
         }

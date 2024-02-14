@@ -13,8 +13,8 @@ class UserListDateController extends Controller
         $users = User::with(['attendance', 'attendance.rest'])
         ->find($id);
 
-        $work_times = []; // $work_timesの初期化
-        $rest_times = []; // $rest_timesの初期化
+        $work_times = [];
+        $rest_times = [];
 
             $attendances = $users->attendance()->paginate(5);
 
@@ -49,6 +49,3 @@ class UserListDateController extends Controller
         return view('userListDate', compact('users', 'attendances', 'work_times','rest_times'));
     }
 }
-
-// strtotime() とは、人間が読み取り可能な日付文字列をUnixタイムスタンプに変換するために使用する。（秒数に変換）
-// gmdate() とは、秒を時・分・秒に変換する。

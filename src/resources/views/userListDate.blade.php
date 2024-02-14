@@ -51,7 +51,10 @@
                     <th>{{ $attendance->work_date }}</th>
                     <th>{{ $attendance->start_time }}</th>
                     <th>{{ $attendance->end_time }}</th>
-                    <th>{{ $rest_times[$attendance->id] }}</th>
+                    <th> @if (isset($rests[$attendance->id]))
+                        {{ $rests[$attendance->id] }}
+                        @endif
+                    </th>
                     <th>{{ $work_times[$attendance->id] }}</th>
                 </tr>
                 @endforeach
@@ -59,7 +62,7 @@
             </table>
         </div>
         <div class="pagination">
-            {{ $attendances->links() }}
+
         </div>
     </div>
 </main>

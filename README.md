@@ -57,7 +57,7 @@ Atte（勤怠管理システム）
 * http://localhost にアクセスしてLaravelアプリケーションにアクセスできることを確認する。
 * http://localhost:8080 にアクセスしてPhpMyAdminでデータベースを管理できることを確認する。
 * http://localhost:8025 にアクセスしてmailhogででメール認証を確認することができる。
-*  http://localhost:8025 にアクセスしてmailhogでメール送信機能の確認テスト実施することができる。
+*  http://localhost:8025 にアクセスしてmailhogでメール認証機能の確認テスト実施することができる。
 
 
 ## 他記載内容

@@ -1,9 +1,7 @@
 <?php
 
-use App\Http\Controllers\StampController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\RestController;
-use App\Http\Controllers\DateController;
 use App\Http\Controllers\UserListController;
 use App\Http\Controllers\UserListDateController;
 use Illuminate\Support\Facades\Route;
@@ -25,9 +23,9 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', [StampController::class, 'stamp']);
-    Route::get('/date/{direction}/{date?}', [DateController::class, 'dayListDate'])->name('dayListDate');
-    Route::get('/current-day-list-date', [DateController::class, 'currentDayListDate'])->name('currentDayListDate');
+    Route::get('/', [AttendanceController::class, 'stamp']);
+    Route::get('/date/{direction}/{date?}', [AttendanceController::class, 'dayListDate'])->name('dayListDate');
+    Route::get('/current-day-list-date', [AttendanceController::class, 'currentDayListDate'])->name('currentDayListDate');
     Route::get('/user-list', [UserListController::class, 'userList']);
     Route::get('/users/{id}', [UserListDateController::class, 'userListDate'])->name('userListDate');
 

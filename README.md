@@ -56,6 +56,7 @@ Atte（勤怠管理システム）
   * docker-compose exec app php artisan migrate
 * http://localhost にアクセスしてLaravelアプリケーションにアクセスできることを確認する。
 * http://localhost:8080 にアクセスしてPhpMyAdminでデータベースを管理できることを確認する。
+* http://localhost:8025 にアクセスしてmailhogででメール認証を確認することができる。
 *  http://localhost:8025 にアクセスしてmailhogでメール送信機能の確認テスト実施することができる。
 
 
